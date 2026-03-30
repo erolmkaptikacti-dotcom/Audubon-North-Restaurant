@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audubon North — Western New York's Best Kept Secret</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F5EDD8;
+    --dark: #1A1208;
+    --char: #2C2015;
+    --ember: #C4440A;
+    --gold: #D4961A;
+    --smoke: #8A7B68;
+    --offwhite: #FAF6EE;
+    --border: rgba(212, 150, 26, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--cream);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(26,18,8,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+  .nav-logo span { font-style: italic; color: var(--cream); }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--gold);
+    padding: 0.6rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: #e5a820; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--dark);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 60%, rgba(196,68,10,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 80% 30%, rgba(212,150,26,0.10) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(212,150,26,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,150,26,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    padding: 2rem;
+    animation: fadeUp 1s ease both;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  h1.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  h1.hero-title em {
+    font-style: italic;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: var(--smoke);
+    letter-spacing: 0.05em;
+    margin: 1.5rem 0 2.5rem;
+    line-height: 1.6;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--ember);
+    color: var(--cream);
+    padding: 1rem 2.5rem;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #d95010; transform: translateY(-2px); }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--cream);
+    padding: 1rem 2.5rem;
+    border: 1px solid rgba(245,237,216,0.3);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--smoke); opacity: 0.6;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  /* ── MARQUEE STRIP ── */
+  .marquee-strip {
+    background: var(--ember);
+    padding: 0.75rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .marquee-inner {
+    display: flex; gap: 0;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream);
+    padding: 0 3rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(245,237,216,0.5);
+    flex-shrink: 0;
+  }
+
+  /* ── ABOUT / STORY ── */
+  #story {
+    padding: 8rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .story-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  h2.section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .story-body {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: #C8B99A;
+    margin-bottom: 1.25rem;
+  }
+
+  .story-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item {}
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-top: 0.35rem;
+  }
+
+  .story-visual {
+    position: relative;
+  }
+  .story-card-main {
+    background: var(--char);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .story-card-main::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: -12px; bottom: -12px;
+    border: 1px solid rgba(212,150,26,0.15);
+    z-index: -1;
+  }
+  .flame-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  .story-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--cream);
+    margin-bottom: 1.25rem;
+  }
+  .story-attr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .badge-wny {
+    position: absolute;
+    top: -1.5rem; right: -1.5rem;
+    background: var(--ember);
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .badge-wny span:first-child {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    color: var(--cream);
+  }
+  .badge-wny span:last-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,237,216,0.7);
+  }
+
+  /* ── MENU ── */
+  #menu {
+    background: var(--char);
+    padding: 8rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(196,68,10,0.12) 0%, transparent 70%);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 5rem;
+    position: relative;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .menu-card {
+    background: var(--dark);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .menu-card:hover { background: #1f160a; }
+  .menu-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .menu-card:hover::after { transform: scaleX(1); }
+
+  .menu-card.featured {
+    background: var(--ember);
+    grid-row: span 1;
+  }
+  .menu-card.featured:hover { background: #d45010; }
+  .menu-card.featured::after { background: linear-gradient(to right, transparent, var(--cream), transparent); }
+
+  .menu-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .menu-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #9B8A76;
+  }
+  .menu-card.featured .menu-desc { color: rgba(245,237,216,0.75); }
+
+  .menu-tag {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    background: rgba(212,150,26,0.12);
+    color: var(--gold);
+    border: 1px solid rgba(212,150,26,0.25);
+  }
+  .menu-card.featured .menu-tag {
+    background: rgba(26,18,8,0.25);
+    color: var(--cream);
+    border-color: rgba(245,237,216,0.3);
+  }
+
+  /* ── REVIEWS ── */
+  #reviews {
+    padding: 8rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .review-card {
+    background: var(--char);
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .review-card:hover {
+    border-color: rgba(212,150,26,0.5);
+    transform: translateY(-4px);
+  }
+  .review-stars {
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+  }
+  .review-text {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #C8B99A;
+    margin-bottom: 1.5rem;
+  }
+  .review-author {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .review-big-quote {
+    position: absolute;
+    top: 1.5rem; right: 1.75rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(212,150,26,0.08);
+    font-style: italic;
+  }
+
+  /* ── VISIT ── */
+  #visit {
+    background: var(--char);
+    padding: 8rem 3rem;
+    position: relative;
+  }
+  #visit::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 80% at 100% 50%, rgba(212,150,26,0.06) 0%, transparent 60%);
+  }
+
+  .visit-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+    position: relative;
+  }
+
+  .info-block {
+    margin-bottom: 3rem;
+  }
+  .info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .info-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .info-value a { color: var(--cream); text-decoration: none; transition: color 0.2s; }
+  .info-value a:hover { color: var(--gold); }
+
+  .hours-grid {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .hours-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.9rem; font-weight: 400;
+    color: #C8B99A;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(212,150,26,0.12);
+  }
+  .hours-row .day {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--smoke);
+  }
+
+  .visit-tagline {
+    padding: 3rem;
+    border: 1px solid var(--border);
+    background: var(--dark);
+  }
+  .visit-tagline p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+  }
+  .visit-tagline .attr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0F0B05;
+    padding: 4rem 3rem 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .footer-logo span { font-style: italic; color: var(--cream); }
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-top: 0.35rem;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(212,150,26,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: #4A4032;
+  }
+  .footer-address {
+    font-size: 0.75rem;
+    color: #4A4032;
+    text-align: right;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── DIVIDER ── */
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto 2rem;
+    color: var(--gold);
+  }
+  .ornament-line {
+    width: 50px; height: 1px;
+    background: var(--gold); opacity: 0.4;
+  }
+  .ornament-diamond {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #story { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+    .menu-grid { grid-template-columns: 1fr 1fr; gap: 1px; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .visit-inner { grid-template-columns: 1fr; gap: 3rem; padding: 0; }
+    #visit { padding: 5rem 1.5rem; }
+    #reviews { padding: 5rem 1.5rem; }
+    #menu { padding: 5rem 1.5rem; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .footer-address { text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .story-stats { grid-template-columns: 1fr 1fr; }
+    .hero-ctas { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Audubon <span>North</span></div>
+  <div class="nav-links">
+    <a href="#story">Our Story</a>
+    <a href="menu.html">Menu</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <a href="#visit" class="nav-cta">Find Us</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Western New York's Best Kept Secret</div>
+    <h1 class="hero-title">
+      Audubon
+      <em>North</em>
+    </h1>
+    <p class="hero-sub">
+      Handmade. From scratch. Every single time.<br>
+      3050 Sweet Home Rd, Amherst, NY
+    </p>
+    <div class="hero-ctas">
+      <a href="menu.html" class="btn-primary">See the Menu</a>
+      <a href="#visit" class="btn-ghost">Get Directions</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <!-- repeated twice for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span>Handmade Chicken Fingers</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Grilled Wings</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Beef on Weck</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>House-Made Bleu Cheese</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Kimmelweck Rolls Baked In-House</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Friday Fish Fry</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Fresh Cut Fries</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Outdoor Seating</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Handmade Chicken Fingers</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Grilled Wings</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Beef on Weck</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>House-Made Bleu Cheese</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Kimmelweck Rolls Baked In-House</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Friday Fish Fry</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Fresh Cut Fries</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Outdoor Seating</span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="story-left reveal">
+    <div class="story-label">Our Story</div>
+    <h2 class="section-title">
+      A neighborhood spot with <em>no shortcuts.</em>
+    </h2>
+    <p class="story-body">
+      Tucked off SweetHome Road in Amherst, Audubon North has been quietly feeding Western New York's most loyal regulars for years. What started as a neighborhood spot became a pilgrimage destination — all because of one man's obsession with doing everything from scratch.
+    </p>
+    <p class="story-body">
+      Scott, the owner, doesn't cut corners. Every chicken finger is hand-split from whole breast, hand-breaded with homemade crumbs, and finished on the grill. The kimmelweck rolls come out of their own oven. The bleu cheese is made in-house. Even the bread crumbs.
+    </p>
+    <p class="story-body">
+      This is Buffalo food done right. Not fast. Not factory. Real.
+    </p>
+    <div class="story-stats">
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Handmade from scratch</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">#1</div>
+        <div class="stat-label">Chicken fingers in WNY</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">Top 5</div>
+        <div class="stat-label">Wings in Buffalo</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">Years</div>
+        <div class="stat-label">Of feeding the neighborhood</div>
+      </div>
+    </div>
+  </div>
+  <div class="story-visual reveal" style="transition-delay: 0.15s">
+    <div class="story-card-main">
+      <p class="story-quote">
+        "Oh My Goodness — Best I ever had. Shout out to the owner for your originality. I appreciate good food."
+      </p>
+      <div class="story-attr">— Ken Boone, Local Guide</div>
+      <div class="badge-wny">
+        <span>Best in</span>
+        <span>WNY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-header reveal">
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="story-label">What We Make</div>
+    <h2 class="section-title">Everything is <em>handmade.</em></h2>
+    <p class="story-body" style="max-width:480px; margin: 0 auto;">
+      A focused menu done with uncommon care. Nothing frozen. Nothing corporate.
+    </p>
+  </div>
+
+  <div class="menu-grid">
+
+    <div class="menu-card featured reveal">
+      <div class="menu-name">BBQ Chicken Fingers</div>
+      <p class="menu-desc">
+        Whole chicken breasts, hand-split, hand-breaded with homemade crumbs, deep fried then finished on the grill. These are not your typical fingers — they're enormous, extraordinary, and made by someone who cares.
+      </p>
+      <span class="menu-tag">House Signature</span>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.05s">
+      <div class="menu-name">Grilled Wings</div>
+      <p class="menu-desc">
+        Double-dipped and grilled to order. Consistently called top-5 best wings in Buffalo. Served with our house-made bleu cheese — some of the best in the city.
+      </p>
+      <span class="menu-tag">Buffalo Legend</span>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.1s">
+      <div class="menu-name">Beef on Weck</div>
+      <p class="menu-desc">
+        Piled on a kimmelweck roll baked in-house — one of the best in Western New York. Served with horseradish, pickle slices, and carrots. As Western New York as it gets.
+      </p>
+      <span class="menu-tag">WNY Classic</span>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.15s">
+      <div class="menu-name">Friday Fish Fry</div>
+      <p class="menu-desc">
+        A Western New York Friday ritual done properly. Tender fish, perfectly fried, with sides that surprise — think stuffed onions, house slaw, and pasta.
+      </p>
+      <span class="menu-tag">Fridays Only</span>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.2s">
+      <div class="menu-name">House Bleu Cheese</div>
+      <p class="menu-desc">
+        Made from scratch in-house. Customers drive here just for this. The perfect companion to wings, fingers, and anything else on the menu.
+      </p>
+      <span class="menu-tag">Made In-House</span>
+    </div>
+
+    <div class="menu-card reveal" style="transition-delay:0.25s">
+      <div class="menu-name">Salads & Sides</div>
+      <p class="menu-desc">
+        Fresh-cut fries, big salads, garlic pasta, and rotating sides that always manage to surprise. Great value, generous portions — nothing is an afterthought here.
+      </p>
+      <span class="menu-tag">Big Portions</span>
+    </div>
+
+  </div>
+
+  <div style="text-align:center; margin-top: 4rem; position:relative;">
+    <p style="font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--smoke); margin-bottom:1.25rem;">
+      The menu is small. That's the point.
+    </p>
+    <a href="#visit" class="btn-primary">Come Find Us</a>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header reveal">
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="story-label">What People Say</div>
+    <h2 class="section-title">The word <em>gets out.</em></h2>
+  </div>
+
+  <div class="reviews-grid">
+
+    <div class="review-card reveal">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "The chicken fingers were absolutely huge and delicious. Great prices, especially for how much food you get. Friendly waitress. A great place off the beaten path."
+      </p>
+      <div class="review-author">— Dr. Andrew, Google Review</div>
+    </div>
+
+    <div class="review-card reveal" style="transition-delay:0.1s">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Wings on the grill were absolutely incredible and the flavor was enhanced with the house-made Bleu Cheese. We were not disappointed — this place is a hidden gem."
+      </p>
+      <div class="review-author">— Google Review</div>
+    </div>
+
+    <div class="review-card reveal" style="transition-delay:0.2s">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Scott the owner really knows his stuff. Homemade chicken fingers from scratch with homemade breadcrumbs. Wouldn't go anywhere else for chicken fingers."
+      </p>
+      <div class="review-author">— Michael Lenney, Local Guide</div>
+    </div>
+
+    <div class="review-card reveal" style="transition-delay:0.05s">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Rolls and bread crumbs made in house. Kimmelweck rolls are some of the best in Western NY. Good seating, nice outdoor seating as well."
+      </p>
+      <div class="review-author">— Jeffrey Dick, Local Guide</div>
+    </div>
+
+    <div class="review-card reveal" style="transition-delay:0.15s">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Best chicken fingers in WNY and friendly patrons. I'm pretty sure they are made from scratch and they are huge!!"
+      </p>
+      <div class="review-author">— Natasha Hayes, Google Review</div>
+    </div>
+
+    <div class="review-card reveal" style="transition-delay:0.25s">
+      <div class="review-big-quote">"</div>
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        "Most comforting place to watch a Sabres game, relax and enjoy great food. Everything is home made and the service is exceptional."
+      </p>
+      <div class="review-author">— Jason Watson, Local Guide</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="visit-inner">
+    <div class="reveal">
+      <div class="story-label">Find Us</div>
+      <h2 class="section-title" style="margin-bottom:3rem">Come <em>hungry.</em></h2>
+
+      <div class="info-block">
+        <div class="info-label">Address</div>
+        <div class="info-value">
+          <a href="https://maps.google.com/?q=3050+Sweet+Home+Rd+Amherst+NY" target="_blank">
+            3050 Sweet Home Rd<br>Amherst, NY
+          </a>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Phone</div>
+        <div class="info-value"><a href="tel:7166919248">(716) 691-9248</a></div>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Hours</div>
+        <div class="hours-grid">
+          <div class="hours-row"><span class="day">Monday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Tuesday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Wednesday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Thursday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Friday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Saturday</span><span>11am – 10pm</span></div>
+          <div class="hours-row"><span class="day">Sunday</span><span>Closed</span></div>
+        </div>
+        <p style="font-size:0.75rem; color:var(--smoke); margin-top:0.75rem; font-style:italic;">
+          Hours may vary — call ahead to confirm.
+        </p>
+      </div>
+
+      <div class="info-block">
+        <div class="info-label">Good to Know</div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.25rem;">
+          <span style="font-size:0.85rem; color:#C8B99A;">Free parking on-site</span>
+          <span style="font-size:0.85rem; color:#C8B99A;">Outdoor seating available</span>
+          <span style="font-size:0.85rem; color:#C8B99A;">Full bar — drinks in frozen glasses</span>
+          <span style="font-size:0.85rem; color:#C8B99A;">Best place to watch the Sabres</span>
+          <span style="font-size:0.85rem; color:#C8B99A;">Friday Fish Fry every week</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s">
+      <div class="visit-tagline" style="margin-bottom:2rem">
+        <p>
+          "A dive bar worth stopping at. You can relax and have great food in a really friendly space."
+        </p>
+        <div class="attr">— Sarah L, Google Review</div>
+      </div>
+
+      <div class="visit-tagline">
+        <p style="font-size:1.25rem; margin-bottom:1rem;">
+          "Came with a friend that's a regular here. Wings were easily top 5 best I've ever had."
+        </p>
+        <div class="attr">— Nick P, Local Guide · 7 years of returning</div>
+      </div>
+
+      <div style="margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="https://maps.google.com/?q=3050+Sweet+Home+Rd+Amherst+NY" target="_blank" class="btn-primary">
+          Get Directions
+        </a>
+        <a href="tel:7166919248" class="btn-ghost">Call Ahead</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Audubon <span>North</span></div>
+      <div class="footer-tagline">Western New York's Best Kept Secret</div>
+    </div>
+    <div class="footer-links">
+      <a href="#story">Our Story</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Hours & Location</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Audubon North Restaurant. Amherst, NY.</div>
+    <div class="footer-address">Sweetome Road · Amherst, NY · Western New York</div>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
