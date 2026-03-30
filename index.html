@@ -88,14 +88,6 @@
       radial-gradient(ellipse 40% 50% at 80% 30%, rgba(212,150,26,0.10) 0%, transparent 60%);
   }
 
-  .hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(212,150,26,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212,150,26,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
   .hero-content {
     position: relative; z-index: 2;
     text-align: center;
@@ -193,32 +185,23 @@
     animation: scrollPulse 2s ease-in-out infinite;
   }
 
-  /* ── MARQUEE STRIP ── */
-  .marquee-strip {
-    background: var(--ember);
-    padding: 0.75rem 0;
-    overflow: hidden;
-    position: relative;
-  }
-  .marquee-inner {
-    display: flex; gap: 0;
-    animation: marquee 30s linear infinite;
-    white-space: nowrap;
-    width: max-content;
-  }
-  .marquee-item {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--cream);
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
     padding: 0 3rem;
-    display: flex; align-items: center; gap: 1rem;
+    background: var(--dark);
   }
-  .marquee-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: rgba(245,237,216,0.5);
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ember), transparent);
+  }
+  .divider-diamond {
+    width: 10px; height: 10px;
+    background: var(--ember);
+    transform: rotate(45deg);
+    margin: 1.25rem 1.5rem;
     flex-shrink: 0;
   }
 
@@ -555,25 +538,37 @@
     color: var(--smoke);
   }
 
-  .visit-tagline {
-    padding: 3rem;
+  .map-link {
+    display: block;
+    position: relative;
     border: 1px solid var(--border);
-    background: var(--dark);
+    overflow: hidden;
+    text-decoration: none;
+    aspect-ratio: 4/3;
   }
-  .visit-tagline p {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.6rem;
-    line-height: 1.5;
-    color: var(--cream);
-    margin-bottom: 1.5rem;
+  .map-link iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: none;
+    display: block;
+    filter: grayscale(30%) contrast(1.1);
   }
-  .visit-tagline .attr {
+  .map-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(15,12,9,0.85));
+    padding: 2rem 1.5rem 1.25rem;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
+    transition: background 0.2s;
+  }
+  .map-link:hover .map-overlay {
+    background: linear-gradient(transparent, rgba(15,12,9,0.95));
+    color: var(--cream);
   }
 
   /* ── FOOTER ── */
@@ -722,7 +717,6 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Western New York's Best Kept Secret</div>
     <h1 class="hero-title">
@@ -744,27 +738,11 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-strip" aria-hidden="true">
-  <div class="marquee-inner">
-    <!-- repeated twice for seamless loop -->
-    <span class="marquee-item"><span class="marquee-dot"></span>Handmade Chicken Fingers</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Grilled Wings</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Beef on Weck</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>House-Made Bleu Cheese</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Kimmelweck Rolls Baked In-House</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Friday Fish Fry</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Fresh Cut Fries</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Outdoor Seating</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Handmade Chicken Fingers</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Grilled Wings</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Beef on Weck</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>House-Made Bleu Cheese</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Kimmelweck Rolls Baked In-House</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Friday Fish Fry</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Fresh Cut Fries</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Outdoor Seating</span>
-  </div>
+<!-- SECTION DIVIDER -->
+<div class="section-divider" aria-hidden="true">
+  <div class="divider-line"></div>
+  <div class="divider-diamond"></div>
+  <div class="divider-line"></div>
 </div>
 
 <!-- STORY -->
@@ -1012,21 +990,16 @@
     </div>
 
     <div class="reveal" style="transition-delay:0.15s">
-      <div class="visit-tagline" style="margin-bottom:2rem">
-        <p>
-          "A dive bar worth stopping at. You can relax and have great food in a really friendly space."
-        </p>
-        <div class="attr">— Sarah L, Google Review</div>
-      </div>
+      <a href="https://maps.google.com/?q=3050+Sweet+Home+Rd+Amherst+NY" target="_blank" class="map-link">
+        <iframe
+          src="https://maps.google.com/maps?q=3050+Sweet+Home+Rd,+Amherst,+NY&output=embed&z=15"
+          loading="lazy"
+          title="Audubon North location map"
+        ></iframe>
+        <div class="map-overlay">Open in Google Maps &rarr;</div>
+      </a>
 
-      <div class="visit-tagline">
-        <p style="font-size:1.25rem; margin-bottom:1rem;">
-          "Came with a friend that's a regular here. Wings were easily top 5 best I've ever had."
-        </p>
-        <div class="attr">— Nick P, Local Guide · 7 years of returning</div>
-      </div>
-
-      <div style="margin-top:2.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
         <a href="https://maps.google.com/?q=3050+Sweet+Home+Rd+Amherst+NY" target="_blank" class="btn-primary">
           Get Directions
         </a>
