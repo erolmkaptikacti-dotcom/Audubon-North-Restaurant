@@ -82,13 +82,7 @@
     position: absolute; inset: 0;
     background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196,68,10,0.14) 0%, transparent 70%);
   }
-  .menu-hero-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(212,150,26,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212,150,26,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+
   .menu-eyebrow {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.7rem;
@@ -341,10 +335,61 @@
   .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── MOBILE MENU ── */
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .mobile-menu-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--cream);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .mobile-menu-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .mobile-menu-btn.open span:nth-child(2) { opacity: 0; }
+  .mobile-menu-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  .mobile-nav-dropdown {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(26,18,8,0.98);
+    backdrop-filter: blur(8px);
+    padding: 5rem 2rem 2.5rem;
+    z-index: 99;
+    flex-direction: column;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav-dropdown.open { display: flex; }
+  .mobile-nav-dropdown a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid rgba(212,150,26,0.15);
+    opacity: 0.85;
+    transition: color 0.2s, opacity 0.2s;
+  }
+  .mobile-nav-dropdown a:hover { color: var(--gold); opacity: 1; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 860px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    .mobile-menu-btn { display: flex; }
     .menu-hero { padding: 8rem 1.5rem 3rem; }
     .menu-body { padding: 0 1.5rem 5rem; }
     .menu-columns { grid-template-columns: 1fr; gap: 3rem; }
@@ -367,11 +412,24 @@
     <a href="index.html#visit">Visit</a>
   </div>
   <a href="index.html#visit" class="nav-cta">Find Us</a>
+  <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
+
+<!-- MOBILE NAV DROPDOWN -->
+<div class="mobile-nav-dropdown" id="mobileNav">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="index.html#story" class="mobile-nav-link">Our Story</a>
+  <a href="menu.html" class="mobile-nav-link">Menu</a>
+  <a href="index.html#reviews" class="mobile-nav-link">Reviews</a>
+  <a href="index.html#visit" class="mobile-nav-link">Visit Us</a>
+</div>
 
 <!-- MENU HERO -->
 <div class="menu-hero">
-  <div class="menu-hero-grid"></div>
   <div class="menu-eyebrow">3050 Sweet Home Rd, Amherst</div>
   <h1 class="menu-title">Our <em>Menu</em></h1>
   <p class="menu-note">Everything freshly made. Rolls baked daily. Fingers hand-breaded to order.</p>
@@ -684,6 +742,27 @@
     });
   }, { threshold: 0.1 });
   reveals.forEach(el => io.observe(el));
+
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  function closeMobileMenu() {
+    menuBtn.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    menuBtn.classList.toggle('open', isOpen);
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  document.querySelectorAll('.mobile-nav-link').forEach(a => {
+    a.addEventListener('click', () => closeMobileMenu());
+  });
 </script>
 </body>
 </html>
